@@ -1,0 +1,31 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ML Prediction</title>
+</head>
+<body>
+    <h1>Text Classification</h1>
+    <form id="predict-form">
+        <label for="text">Enter text:</label>
+        <input type="text" id="text" name="text" required>
+        <button type="submit">Predict</button>
+    </form>
+    <h2 id="result"></h2>
+
+    <script>
+        document.getElementById('predict-form').onsubmit = async function(e) {
+            e.preventDefault();
+            const formData = new FormData(this);
+            const response = await fetch('/predict', {
+                method: 'POST',
+                body: formData
+            });
+            const result = await response.json();
+            document.getElementById('result').innerText = 'Prediction: ' + result.prediction;
+        }
+    </script>
+</body>
+</html>
